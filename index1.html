@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مؤسسة عبد المجيد العنزي للمقاولات - برجولات ومظلات وهناجر</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Cairo', 'Tajawal', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --brand: #2EA4FF;
+            --brand-2: #FFB300;
+            --accent: #FF6A3D;
+            --bg: #FFFFFF;
+            --text: #1F1F1F;
+            --muted: #6B7280;
+            --border: rgba(0,0,0,0.08);
+            --card: rgba(255,255,255,0.8);
+            --glass: rgba(255,255,255,0.1);
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-neo: 0 8px 32px rgba(0,0,0,0.12);
+            --ring: rgba(46,164,255,0.3);
+            --img-filter: brightness(1) contrast(1.05) saturate(1.1);
+            --noise-url: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .dark {
+            --bg: #181818;
+            --text: #F9FAFB;
+            --muted: #9CA3AF;
+            --border: rgba(255,255,255,0.1);
+            --card: rgba(0,0,0,0.4);
+            --glass: rgba(255,255,255,0.05);
+            --shadow-soft: 0 4px 20px rgba(0,0,0,0.25);
+            --shadow-neo: 0 8px 32px rgba(0,0,0,0.4);
+            --ring: rgba(46,164,255,0.4);
+            --img-filter: brightness(0.9) contrast(1.1) saturate(1.05);
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans Arabic', 'Noto Naskh Arabic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Orbs background */
+        .bg-orbs {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+            filter: blur(50px) saturate(120%);
+            opacity: 0.45;
+        }
+
+        .bg-orbs::before, .bg-orbs::after {
+            content: "";
+            position: absolute;
+            width: 60vmax;
+            height: 60vmax;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(46,164,255,0.6), transparent 60%),
+                        radial-gradient(circle at 70% 70%, rgba(255,179,0,0.55), transparent 55%),
+                        radial-gradient(circle at 40% 80%, rgba(255,106,61,0.50), transparent 55%);
+            animation: floatA 28s ease-in-out infinite alternate;
+        }
+
+        .bg-orbs::after {
+            width: 80vmax;
+            height: 80vmax;
+            top: -20vmax;
+            left: -10vmax;
+            animation: floatB 32s ease-in-out infinite alternate;
+            mix-blend-mode: screen;
+            opacity: 0.9;
+        }
+
+        @keyframes floatA { 0%{transform: translate(0,0) rotate(0)}100%{transform: translate(10%,-6%) rotate(35deg)} }
+        @keyframes floatB { 0%{transform: translate(15%,-10%) rotate(-10deg)}100%{transform: translate(-10%,8%) rotate(20deg)} }
+
+        /* Subtle grain */
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image: var(--noise-url, none);
+            opacity: .06;
+            mix-blend-mode: overlay;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(10px) saturate(120%);
+            -webkit-backdrop-filter: blur(10px) saturate(120%);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-neo);
+        }
+
+        .neo {
+            background: var(--card);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(6px);
+        }
+
+        .focus-ring:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 4px var(--ring);
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap:.5rem;
+            border-radius:.9rem;
+            padding:.9rem 1.2rem;
+            font-weight:700;
+            transition: transform .18s, box-shadow .2s, background-color .2s;
+            box-shadow: var(--shadow-neo);
+            border:1px solid var(--border);
+            will-change: transform;
+        }
+
+        .btn:hover { transform: translateY(-2px); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand), var(--accent));
+            color:#fff;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+        }
+
+        .btn-outline:hover { background: rgba(255,255,255,0.06); }
+
+        .section {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .shadow-tilt:hover {
+            transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+            transition: transform .35s ease;
+        }
+
+        .img-cover {
+            object-fit: cover;
+            filter: var(--img-filter);
+        }
+
+        .clip-blob {
+            clip-path: path("M58.5,-52.4C73.6,-38.9,81.4,-19.5,79.7,-1.2C78.1,17.1,67,34.2,51.9,47.3C36.7,60.4,17.3,69.5,0.1,69.4C-17.1,69.3,-34.2,60.1,-48.8,47C-63.4,33.8,-75.4,16.9,-76.9,-0.8C-78.3,-18.6,-69.2,-37.2,-54.6,-50.7C-40.1,-64.1,-20,-72.3,-0.6,-71.6C18.8,-70.8,37.6,-61.1,58.5,-52.4Z");
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 4px;
+            width: 0%;
+            z-index: 80;
+            background: linear-gradient(90deg, var(--brand), var(--brand-2), var(--accent));
+            box-shadow: 0 0 12px rgba(0,0,0,.25);
+            transition: width .1s linear;
+        }
+
+        .nav-active {
+            color: var(--brand-2);
+            font-weight: 800;
+        }
+
+        .tab-active {
+            background: linear-gradient(145deg, rgba(46,164,255,.15), rgba(255,179,0,.12));
+            border-color: rgba(46,164,255,.4);
+        }
+
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        .fade-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity .35s ease, transform .35s ease;
+        }
+
+        /* Print styles for quotes */
+        @media print {
+            @page { size: A4; margin: 16mm; }
+            html, body { background: #fff !important; color: #000 !important; }
+            header, footer, .bg-orbs, .grain, #toTop, .fixed, .no-print, .scroll-progress { display: none !important; }
+            #quotes { padding: 0 !important; margin: 0 !important; }
+            #quotePreview { box-shadow: none !important; border: 1px solid #ccc !important; background: #fff !important; color: #000 !important; }
+            #quotePreview * { color: #000 !important; }
+        }
+
+        @media (max-width: 640px) {
+            .section {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Progress bar and background -->
+    <div class="scroll-progress" role="progressbar" aria-label="تقدم التمرير"></div>
+    <div class="bg-orbs"></div>
+    <div class="grain"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 glass" role="banner">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl neo inline-flex items-center justify-center">
+                        <i class="ri-building-2-fill text-xl text-[color:var(--brand)]"></i>
+                    </div>
+                    <div>
+                        <div class="font-extrabold text-lg">عبد المجيد العنزي</div>
+                        <div class="text-xs text-[color:var(--muted)]">للمقاولات</div>
+                    </div>
+                </div>
+
+                <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-lg z-50">
+                    تخطي إلى المحتوى
+                </a>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center gap-1" aria-label="روابط رئيسية" id="topNav">
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#home" data-target="home">الرئيسية</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#about" data-target="about">من نحن</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#services" data-target="services">الخدمات</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#request-quote" data-target="request-quote">طلب عرض سعر</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#contact" data-target="contact">اتصل بنا</a>
+
+                    <div class="relative" id="moreMenu">
+                        <button class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring inline-flex items-center gap-1" aria-haspopup="true" aria-expanded="false" aria-controls="moreDropdown" id="moreBtn">
+                            المزيد
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div id="moreDropdown" class="absolute end-0 mt-2 w-64 glass rounded-xl p-2 hidden" role="menu" tabindex="-1">
+                            <a href="#policies" class="block px-3 py-2 rounded-lg hover:bg-white/10 nav-link" role="menuitem" data-target="policies">سياسة الخصوصية</a>
+                            <a href="#tos" class="block px-3 py-2 rounded-lg hover:bg-white/10 nav-link" role="menuitem" data-target="tos">اتفاقية الاستخدام</a>
+                            <a href="#archive" class="block px-3 py-2 rounded-lg hover:bg-white/10 nav-link" role="menuitem" data-target="archive">أرشيف الموقع</a>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Header actions -->
+                <div class="flex items-center gap-2">
+                    <button id="themeToggle" class="btn btn-outline focus-ring" aria-label="تبديل الوضع">
+                        <i class="ri-sun-line hidden" id="sunIcon"></i>
+                        <i class="ri-moon-line" id="moonIcon"></i>
+                        <span class="hidden sm:inline">الوضع</span>
+                    </button>
+
+                    <a href="tel:+966500000000" class="btn btn-primary focus-ring">
+                        <i class="ri-phone-fill"></i>
+                        <span class="hidden sm:inline">اتصل الآن</span>
+                    </a>
+
+                    <button id="menuBtn" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl neo focus-ring" aria-label="فتح القائمة">
+                        <i class="ri-menu-3-line text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <div class="border-t border-[color:var(--border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <nav aria-label="مسار الصفحة" class="flex items-center gap-2 py-2 text-sm text-[color:var(--muted)]" id="breadcrumbs">
+                    <a class="hover:underline" href="#home">الرئيسية</a>
+                    <i class="ri-arrow-left-s-line"></i>
+                    <span id="crumbSection">الصفحة</span>
+                    <span id="crumbDivider" class="hidden"><i class="ri-arrow-left-s-line"></i></span>
+                    <span id="crumbTab" class="hidden"></span>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Mobile off-canvas menu -->
+        <div id="mobileSheet" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+            <div class="absolute inset-0 bg-black/50" data-close></div>
+            <aside class="absolute top-0 bottom-0 end-0 w-72 max-w-full neo p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-label="قائمة الجوال">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="font-extrabold">القائمة</div>
+                    <button class="neo w-10 h-10 rounded-lg inline-flex items-center justify-center focus-ring" data-close aria-label="إغلاق القائمة"><i class="ri-close-line"></i></button>
+                </div>
+                <nav class="flex flex-col gap-1">
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#home" data-target="home">الرئيسية</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#about" data-target="about">من نحن</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#services" data-target="services">الخدمات</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#request-quote" data-target="request-quote">طلب عرض سعر</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#contact" data-target="contact">اتصل بنا</a>
+                    <div class="mt-3 text-xs uppercase tracking-wider text-[color:var(--muted)]">روابط إضافية</div>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#policies" data-target="policies">سياسة الخصوصية</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#tos" data-target="tos">اتفاقية الاستخدام</a>
+                    <a class="px-3 py-2 rounded-lg hover:bg-white/10 focus-ring nav-link" href="#archive" data-target="archive">أرشيف الموقع</a>
+                </nav>
+            </aside>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main id="content">
+        <!-- Hero -->
+        <section id="home" class="section pt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm">
+                            <i class="ri-star-fill text-amber-400"></i>
+                            مؤسسة مرخصة ومعتمدة
+                        </div>
+
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+                            <span class="bg-gradient-to-r from-[color:var(--brand)] via-[color:var(--brand-2)] to-[color:var(--accent)] bg-clip-text text-transparent">مؤسسة عبد المجيد العنزي</span>
+                            <br>للمقاولات العامة
+                        </h1>
+
+                        <p class="text-lg text-[color:var(--muted)] leading-8">
+                            نحن متخصصون في تركيب البرجولات والمظلات والهناجر والسواتر والشبوك، بالإضافة إلى الخدمات الزراعية وخدمات التراث. خبرة واسعة وجودة لا تضاهى في تبوك والمنطقة الشمالية.
+                        </p>
+
+                        <div class="flex flex-wrap gap-3">
+                            <a href="#request-quote" class="btn btn-primary nav-link" data-target="request-quote">
+                                <i class="ri-price-tag-3-line"></i>
+                                اطلب عرض سعر
+                            </a>
+
+                            <a href="https://wa.me/966500000000" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                                <i class="ri-whatsapp-line"></i>
+                                واتساب
+                            </a>
+
+                            <a href="#services" class="btn btn-outline nav-link" data-target="services">
+                                <i class="ri-eye-line"></i>
+                                استعرض خدماتنا
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -inset-6 rounded-3xl blur-2xl opacity-70" style="background: radial-gradient(60% 60% at 50% 40%, rgba(46,164,255,.45), transparent), radial-gradient(50% 50% at 60% 70%, rgba(255,179,0,.35), transparent);"></div>
+                        <div class="glass rounded-3xl p-2 relative shadow-tilt">
+                            <img class="w-full h-80 sm:h-96 rounded-2xl img-cover" loading="eager" src="https://picsum.photos/seed/const1/1200/800" alt="مشهد إنشائي لفرق عمل المقاولات أثناء التنفيذ">
+                            <div class="absolute top-3 start-3 inline-flex items-center gap-2 px-3 py-1 rounded-full neo text-xs">
+                                <i class="ri-star-fill text-amber-400"></i>
+                                تقييمات ممتازة
+                            </div>
+                            <div class="absolute bottom-3 end-3 inline-flex items-center gap-2 px-3 py-1 rounded-full neo text-xs">
+                                <i class="ri-time-line"></i>
+                                مواعيد دقيقة
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold">من نحن</h2>
+                        <p class="text-[color:var(--muted)] leading-8">
+                            تعتبر مؤسسة عبدالمجيد العنزي التجارية من أبرز المؤسسات في مجال المقاولات بالمملكة العربية السعودية، مقرها مدينة تبوك - حي الحمراء. تأسست لتلبية احتياجات السوق من الخدمات الإنشائية والزراعية بخبرة عالية واحترافية. نضمن جودة العمل ونحرص على أفضل المواد وأعلى معايير السلامة.
+                        </p>
+
+                        <ul class="grid sm:grid-cols-2 gap-3 text-sm">
+                            <li class="neo rounded-xl p-3 flex items-start gap-3">
+                                <i class="ri-checkbox-circle-line text-green-500 text-xl"></i>
+                                <div>
+                                    <div class="font-bold">تركيب احترافي</div>
+                                    <p class="text-[color:var(--muted)]">تنفيذ وفق المواصفات العالمية.</p>
+                                </div>
+                            </li>
+
+                            <li class="neo rounded-xl p-3 flex items-start gap-3">
+                                <i class="ri-seedling-line text-emerald-500 text-xl"></i>
+                                <div>
+                                    <div class="font-bold">خبرات زراعية</div>
+                                    <p class="text-[color:var(--muted)]">زراعة وقلع نخيل وأشجار برية.</p>
+                                </div>
+                            </li>
+
+                            <li class="neo rounded-xl p-3 flex items-start gap-3">
+                                <i class="ri-shake-hands-line text-sky-500 text-xl"></i>
+                                <div>
+                                    <div class="font-bold">ثقة العملاء</div>
+                                    <p class="text-[color:var(--muted)]">سمعة ممتازة وإنجاز سريع.</p>
+                                </div>
+                            </li>
+
+                            <li class="neo rounded-xl p-3 flex items-start gap-3">
+                                <i class="ri-shield-star-line text-amber-400 text-xl"></i>
+                                <div>
+                                    <div class="font-bold">ضمان الأعمال</div>
+                                    <p class="text-[color:var(--muted)]">جودة تدوم لسنوات.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute -inset-8 clip-blob opacity-30" style="background: radial-gradient(50% 50% at 50% 50%, rgba(46,164,255,.4), transparent);"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <img class="rounded-2xl h-44 sm:h-56 w-full img-cover neo" loading="lazy" src="https://picsum.photos/seed/pergola/800/600" alt="برجولات عصرية في الحدائق">
+                            <img class="rounded-2xl h-44 sm:h-56 w-full img-cover neo mt-8" loading="lazy" src="https://picsum.photos/seed/shade/800/600" alt="مظلات لمواقف السيارات">
+                            <img class="rounded-2xl h-44 sm:h-56 w-full img-cover neo" loading="lazy" src="https://picsum.photos/seed/hangar/800/600" alt="هناجر بمواصفات عالمية">
+                            <img class="rounded-2xl h-44 sm:h-56 w-full img-cover neo mt-8" loading="lazy" src="https://picsum.photos/seed/fence/800/600" alt="شبوك وسياج للأراضي والملاعب">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services with Accessible Tabs + Deep Linking -->
+        <section id="services" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="flex items-end justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold">خدماتنا</h2>
+                        <p class="text-[color:var(--muted)] mt-2">تنقّل بسرعة بين التصنيفات عبر التبويبات، مع إبراز الرابط النشط وتحديث الرابط العميق تلقائياً.</p>
+                    </div>
+
+                    <div class="hidden sm:flex items-center gap-2">
+                        <button class="btn btn-outline text-sm" id="gridBtn"><i class="ri-layout-grid-fill"></i> شبكي</button>
+                        <button class="btn btn-outline text-sm" id="listBtn"><i class="ri-layout-top-2-fill"></i> رأسي</button>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="glass rounded-2xl p-2 overflow-x-auto">
+                    <div role="tablist" aria-label="تبويبات الخدمات" class="flex gap-2 min-w-max" id="servicesTabs">
+                        <button role="tab" id="tab-all" class="btn btn-outline text-sm whitespace-nowrap" aria-selected="true" aria-controls="panel-all" data-cat="all">الكل</button>
+                        <button role="tab" id="tab-outdoor" class="btn btn-outline text-sm whitespace-nowrap" aria-selected="false" aria-controls="panel-outdoor" data-cat="outdoor">برجولات/مظلات</button>
+                        <button role="tab" id="tab-privacy" class="btn btn-outline text-sm whitespace-nowrap" aria-selected="false" aria-controls="panel-privacy" data-cat="privacy">سواتر وشبوك</button>
+                        <button role="tab" id="tab-industrial" class="btn btn-outline text-sm whitespace-nowrap" aria-selected="false" aria-controls="panel-industrial" data-cat="industrial">هناجر/مستودعات/حواجز</button>
+                        <button role="tab" id="tab-agri" class="btn btn-outline text-sm whitespace-nowrap" aria-selected="false" aria-controls="panel-agri" data-cat="agri">زراعة وخيزران</button>
+                        <button role="tab" id="tab-heritage" class="btn btn-outline text-sm whitespace-nowrap" aria-selected="false" aria-controls="panel-heritage" data-cat="heritage">تراث وآثار</button>
+                        <button role="tab" id="tab-stone" class="btn btn-outline text-sm whitespace-nowrap" aria-selected="false" aria-controls="panel-stone" data-cat="stone">حجر ربراب</button>
+                    </div>
+                </div>
+
+                <!-- Panels container -->
+                <div id="servicesPanels" class="mt-6">
+                    <!-- unified panel with filtering to keep layout fluid -->
+                    <div id="panel-all" role="tabpanel" aria-labelledby="tab-all">
+                        <div id="servicesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Each card is annotated with data-cats for filtering -->
+                            <article class="neo rounded-3xl overflow-hidden shadow-tilt group card" data-cats="outdoor">
+                                <div class="relative">
+                                    <img class="w-full h-48 img-cover lazy" data-src="https://picsum.photos/seed/p1/1200/800" alt="تركيب برجولات بتصميمات عصرية">
+                                    <div class="absolute top-3 end-3 px-3 py-1 rounded-full glass text-xs">برجولات</div>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <h3 class="text-xl font-extrabold">تركيب برجولات</h3>
+                                    <p class="text-[color:var(--muted)]">
+                                        برجولات بأحدث التشكيلات العصرية تتكامل مع تصميم الحديقة مع اختيار المواد المناسبة والتركيب الاحترافي وإضافة اللمسات الجمالية.
+                                    </p>
+                                    <button class="btn btn-primary w-full request-btn" data-service="تركيب برجولات">
+                                        <i class="ri-send-plane-fill"></i>
+                                        اطلب الخدمة
+                                    </button>
+                                </div>
+                            </article>
+
+                            <article class="neo rounded-3xl overflow-hidden shadow-tilt group card" data-cats="outdoor">
+                                <div class="relative">
+                                    <img class="w-full h-48 img-cover lazy" data-src="https://picsum.photos/seed/p2/1200/800" alt="مظلات لمواقف سيارات وأسواق ومساجد">
+                                    <div class="absolute top-3 end-3 px-3 py-1 rounded-full glass text-xs">مظلات</div>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <h3 class="text-xl font-extrabold">تركيب مظلات</h3>
+                                    <p class="text-[color:var(--muted)]">مظلات متنوعة للمواقف والمسابح والأسواق بتصاميم متعددة توفر الحماية والظل.</p>
+                                    <button class="btn btn-primary w-full request-btn" data-service="تركيب مظلات">
+                                        <i class="ri-send-plane-fill"></i>
+                                        اطلب الخدمة
+                                    </button>
+                                </div>
+                            </article>
+
+                            <article class="neo rounded-3xl overflow-hidden shadow-tilt group card" data-cats="privacy">
+                                <div class="relative">
+                                    <img class="w-full h-48 img-cover lazy" data-src="https://picsum.photos/seed/p3/1200/800" alt="سواتر جدارية للفلل والمنازل">
+                                    <div class="absolute top-3 end-3 px-3 py-1 rounded-full glass text-xs">سواتر</div>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <h3 class="text-xl font-extrabold">تركيب سواتر</h3>
+                                    <p class="text-[color:var(--muted)]">سواتر جدارية بارتفاعات حتى 4 أمتار لخصوصية وأمان أعلى.</p>
+                                    <button class="btn btn-primary w-full request-btn" data-service="تركيب سواتر">
+                                        <i class="ri-send-plane-fill"></i>
+                                        اطلب الخدمة
+                                    </button>
+                                </div>
+                            </article>
+
+                            <article class="neo rounded-3xl overflow-hidden shadow-tilt group card" data-cats="industrial">
+                                <div class="relative">
+                                    <img class="w-full h-48 img-cover lazy" data-src="https://picsum.photos/seed/p4/1200/800" alt="هناجر بمواصفات عالمية">
+                                    <div class="absolute top-3 end-3 px-3 py-1 rounded-full glass text-xs">هناجر</div>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <h3 class="text-xl font-extrabold">تركيب هناجر</h3>
+                                    <p class="text-[color:var(--muted)]">تنفيذ هناجر عالية الجودة بواسطة مختصين لضمان المتانة وطول العمر.</p>
+                                    <button class="btn btn-primary w-full request-btn" data-service="تركيب هناجر">
+                                        <i class="ri-send-plane-fill"></i>
+                                        اطلب الخدمة
+                                    </button>
+                                </div>
+                            </article>
+
+                            <article class="neo rounded-3xl overflow-hidden shadow-tilt group card" data-cats="privacy">
+                                <div class="relative">
+                                    <img class="w-full h-48 img-cover lazy" data-src="https://picsum.photos/seed/p5/1200/800" alt="شبوك وسياج للمزارع والملاعب">
+                                    <div class="absolute top-3 end-3 px-3 py-1 rounded-full glass text-xs">شبوك</div>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <h3 class="text-xl font-extrabold">تركيب الشبوك</h3>
+                                    <p class="text-[color:var(--muted)]">سياج للمزارع والملاعب وتسييج الأراضي بأسعار تنافسية وإنجاز سريع.</p>
+                                    <button class="btn btn-primary w-full request-btn" data-service="تركيب الشبوك">
+                                        <i class="ri-send-plane-fill"></i>
+                                        اطلب الخدمة
+                                    </button>
+                                </div>
+                            </article>
+
+                            <article class="neo rounded-3xl overflow-hidden shadow-tilt group card" data-cats="agri">
+                                <div class="relative">
+                                    <img class="w-full h-48 img-cover lazy" data-src="https://picsum.photos/seed/p6/1200/800" alt="زراعة وقلع النخيل والأشجار البرية">
+                                    <div class="absolute top-3 end-3 px-3 py-1 rounded-full glass text-xs">زراعة نخيل</div>
+                                </div>
+                                <div class="p-5 space-y-3">
+                                    <h3 class="text-xl font-extrabold">زراعة وقلع النخيل</h3>
+                                    <p class="text-[color:var(--muted)]">خدمات زراعة وقلع النخيل والأشجار البرية باستخدام أحدث التقنيات.</p>
+                                    <button class="btn btn-primary w-full request-btn" data-service="زراعة وقلع النخيل">
+                                        <i class="ri-send-plane-fill"></i>
+                                        اطلب الخدمة
+                                    </button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Request Quote -->
+        <section id="request-quote" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold">طلب عرض سعر</h2>
+                        <p class="text-[color:var(--muted)] leading-8">
+                            نقدم لكم خدمة طلب عروض الأسعار بسهولة وسرعة. املأ النموذج وسنقوم بالتواصل معكم خلال 24 ساعة لتقديم عرض سعر مفصل يتناسب مع احتياجاتكم وميزانيتكم.
+                        </p>
+
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span>استجابة سريعة خلال 24 ساعة</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span>عروض أسعار تنافسية</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span>استشارات مجانية من خبرائنا</span>
+                            </li>
+                        </ul>
+
+                        <div class="neo rounded-2xl p-5">
+                            <h3 class="font-bold text-lg mb-3">معلومات التواصل</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center">
+                                        <i class="ri-phone-line"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-[color:var(--muted)]">الهاتف</div>
+                                        <a href="tel:+966500000000" class="font-semibold hover:underline">+966 50 000 0000</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-green-100 text-green-600 flex items-center justify-center">
+                                        <i class="ri-whatsapp-line"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-[color:var(--muted)]">واتساب</div>
+                                        <a href="https://wa.me/966500000000" target="_blank" rel="noopener" class="font-semibold hover:underline">+966 50 000 0000</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-gray-100 text-gray-600 flex items-center justify-center">
+                                        <i class="ri-mail-line"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-[color:var(--muted)]">البريد الإلكتروني</div>
+                                        <a href="mailto:info@example.com" class="font-semibold hover:underline">info@example.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="neo rounded-3xl p-6">
+                        <form id="quoteForm" class="space-y-5">
+                            <div class="grid sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium mb-2">الاسم بالكامل</label>
+                                    <input type="text" id="name" name="name" class="w-full px-4 py-3 rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] focus-ring" required>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium mb-2">رقم الجوال</label>
+                                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] focus-ring" required>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">البريد الإلكتروني (اختياري)</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] focus-ring">
+                            </div>
+
+                            <div>
+                                <label for="service" class="block text-sm font-medium mb-2">نوع الخدمة المطلوبة</label>
+                                <select id="service" name="service" class="w-full px-4 py-3 rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] focus-ring" required>
+                                    <option value="" selected disabled>اختر الخدمة</option>
+                                    <option value="تركيب برجولات">تركيب برجولات</option>
+                                    <option value="تركيب مظلات">تركيب مظلات</option>
+                                    <option value="تركيب سواتر">تركيب سواتر</option>
+                                    <option value="تركيب هناجر">تركيب هناجر</option>
+                                    <option value="تركيب الشبوك">تركيب الشبوك</option>
+                                    <option value="زراعة وقلع النخيل">زراعة وقلع النخيل</option>
+                                    <option value="خدمات أخرى">خدمات أخرى</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="details" class="block text-sm font-medium mb-2">تفاصيل المشروع (اختياري)</label>
+                                <textarea id="details" name="details" rows="4" class="w-full px-4 py-3 rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] focus-ring" placeholder="أخبرنا بالمزيد عن مشروعك..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-full">
+                                <i class="ri-send-plane-fill"></i>
+                                إرسال طلب عرض السعر
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold">اتصل بنا</h2>
+                    <p class="text-[color:var(--muted)] mt-3 max-w-2xl mx-auto">نحن هنا للإجابة على استفساراتكم وتقديم أفضل الحلول المناسبة لاحتياجاتكم</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="neo rounded-3xl p-6 text-center">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mx-auto mb-4">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">العنوان</h3>
+                        <p class="text-[color:var(--muted)]">المملكة العربية السعودية، تبوك، حي الحمراء</p>
+                    </div>
+
+                    <div class="neo rounded-3xl p-6 text-center">
+                        <div class="w-16 h-16 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center text-2xl mx-auto mb-4">
+                            <i class="ri-phone-line"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">الهاتف</h3>
+                        <p class="text-[color:var(--muted)] mb-2">+966 50 000 0000</p>
+                        <a href="tel:+966500000000" class="btn btn-primary text-sm">اتصال مباشر</a>
+                    </div>
+
+                    <div class="neo rounded-3xl p-6 text-center">
+                        <div class="w-16 h-16 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl mx-auto mb-4">
+                            <i class="ri-mail-line"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2">البريد الإلكتروني</h3>
+                        <p class="text-[color:var(--muted)] mb-2">info@example.com</p>
+                        <a href="mailto:info@example.com" class="btn btn-primary text-sm">إرسال بريد</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="section pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl neo inline-flex items-center justify-center">
+                            <i class="ri-building-2-fill text-xl text-[color:var(--brand)]"></i>
+                        </div>
+                        <div>
+                            <div class="font-extrabold text-lg">عبد المجيد العنزي</div>
+                            <div class="text-xs text-[color:var(--muted)]">للمقاولات</div>
+                        </div>
+                    </div>
+                    <p class="text-[color:var(--muted)] mb-6 max-w-md">
+                        مؤسسة عبدالمجيد العنزي التجارية للمقاولات العامة، تقدم خدمات متكاملة في مجال البرجولات والمظلات والهناجر والسواتر والشبوك والخدمات الزراعية وخدمات التراث.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 rounded-xl neo inline-flex items-center justify-center hover:bg-[color:var(--brand)] hover:text-white transition-colors">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl neo inline-flex items-center justify-center hover:bg-[color:var(--brand)] hover:text-white transition-colors">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl neo inline-flex items-center justify-center hover:bg-[color:var(--brand)] hover:text-white transition-colors">
+                            <i class="ri-instagram-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl neo inline-flex items-center justify-center hover:bg-[color:var(--brand)] hover:text-white transition-colors">
+                            <i class="ri-linkedin-fill"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">روابط سريعة</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="home">الرئيسية</a></li>
+                        <li><a href="#about" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="about">من نحن</a></li>
+                        <li><a href="#services" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="services">الخدمات</a></li>
+                        <li><a href="#request-quote" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="request-quote">طلب عرض سعر</a></li>
+                        <li><a href="#contact" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">خدماتنا</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="services">البرجولات والمظلات</a></li>
+                        <li><a href="#services" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="services">السواتر والشبوك</a></li>
+                        <li><a href="#services" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="services">الهناجر والمستودعات</a></li>
+                        <li><a href="#services" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="services">الزراعة وقلع النخيل</a></li>
+                        <li><a href="#services" class="text-[color:var(--muted)] hover:text-[color:var(--brand)] transition-colors nav-link" data-target="services">خدمات التراث والآثار</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-[color:var(--border)] mt-12 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[color:var(--muted)] text-sm">© 2023 مؤسسة عبد المجيد العنزي. جميع الحقوق محفوظة.</p>
+                <div class="flex items-center gap-6 text-sm text-[color:var(--muted)]">
+                    <a href="#policies" class="hover:text-[color:var(--brand)] transition-colors nav-link" data-target="policies">سياسة الخصوصية</a>
+                    <a href="#tos" class="hover:text-[color:var(--brand)] transition-colors nav-link" data-target="tos">شروط الخدمة</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="toTop" class="fixed bottom-6 end-6 w-12 h-12 rounded-full neo flex items-center justify-center focus-ring opacity-0 pointer-events-none transition-all duration-300" aria-label="العودة إلى الأعلى">
+        <i class="ri-arrow-up-s-line text-xl"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // DOM Ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            const html = document.documentElement;
+
+            // Check for saved theme preference or respect OS preference
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (savedTheme === 'dark') {
+                html.classList.add('dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                if (html.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                }
+            });
+
+            // Mobile Menu
+            const menuBtn = document.getElementById('menuBtn');
+            const mobileSheet = document.getElementById('mobileSheet');
+            const closeSheetBtns = mobileSheet.querySelectorAll('[data-close]');
+
+            menuBtn.addEventListener('click', () => {
+                mobileSheet.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeSheetBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    mobileSheet.classList.add('hidden');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // More Menu Dropdown
+            const moreBtn = document.getElementById('moreBtn');
+            const moreDropdown = document.getElementById('moreDropdown');
+
+            moreBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isExpanded = moreBtn.getAttribute('aria-expanded') === 'true';
+                moreBtn.setAttribute('aria-expanded', !isExpanded);
+                moreDropdown.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!moreBtn.contains(e.target) && !moreDropdown.contains(e.target)) {
+                    moreBtn.setAttribute('aria-expanded', 'false');
+                    moreDropdown.classList.add('hidden');
+                }
+            });
+
+            // Scroll Progress
+            const scrollProgress = document.querySelector('.scroll-progress');
+            window.addEventListener('scroll', () => {
+                const winHeight = window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / (docHeight - winHeight)) * 100;
+                scrollProgress.style.width = `${progress}%`;
+            });
+
+            // Back to Top Button
+            const toTopBtn = document.getElementById('toTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 600) {
+                    toTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                } else {
+                    toTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+
+            toTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Navigation and Deep Linking
+            const navLinks = document.querySelectorAll('.nav-link');
+            const breadcrumbSection = document.getElementById('crumbSection');
+            const breadcrumbTab = document.getElementById('crumbTab');
+            const breadcrumbDivider = document.getElementById('crumbDivider');
+
+            // Update breadcrumbs and active nav state
+            function updateNavigation(targetId) {
+                // Update breadcrumbs
+                const sectionNames = {
+                    'home': 'الرئيسية',
+                    'about': 'من نحن',
+                    'services': 'الخدمات',
+                    'request-quote': 'طلب عرض سعر',
+                    'contact': 'اتصل بنا',
+                    'policies': 'سياسة الخصوصية',
+                    'tos': 'اتفاقية الاستخدام',
+                    'archive': 'أرشيف الموقع'
+                };
+
+                breadcrumbSection.textContent = sectionNames[targetId] || 'الصفحة';
+                breadcrumbDivider.classList.add('hidden');
+                breadcrumbTab.classList.add('hidden');
+
+                // Update active nav links
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-target') === targetId) {
+                        link.classList.add('nav-active');
+                    } else {
+                        link.classList.remove('nav-active');
+                    }
+                });
+            }
+
+            // Handle navigation clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Update URL hash without scrolling
+                        history.replaceState(null, null, `#${targetId}`);
+                        
+                        // Scroll to target
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Update navigation state
+                        updateNavigation(targetId);
+                    }
+                });
+            });
+
+            // Initialize based on current hash
+            const currentHash = window.location.hash.substring(1);
+            if (currentHash && document.getElementById(currentHash)) {
+                updateNavigation(currentHash);
+            } else {
+                updateNavigation('home');
+            }
+
+            // Services Tabs
+            const serviceTabs = document.querySelectorAll('#servicesTabs button[role="tab"]');
+            const serviceCards = document.querySelectorAll('.card');
+
+            serviceTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update tab states
+                    serviceTabs.forEach(t => {
+                        t.setAttribute('aria-selected', 'false');
+                        t.classList.remove('tab-active');
+                    });
+                    tab.setAttribute('aria-selected', 'true');
+                    tab.classList.add('tab-active');
+
+                    // Filter cards
+                    const category = tab.getAttribute('data-cat');
+                    serviceCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-cats').includes(category)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Update URL hash
+                    history.replaceState(null, null, `#services-${category}`);
+                });
+            });
+
+            // Quote Form
+            const quoteForm = document.getElementById('quoteForm');
+            if (quoteForm) {
+                quoteForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    // Here you would normally send the form data to a server
+                    alert('تم استلام طلبك بنجاح! سنتواصل معك خلال 24 ساعة.');
+                    quoteForm.reset();
+                });
+            }
+
+            // Request buttons in services
+            const requestButtons = document.querySelectorAll('.request-btn');
+            requestButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const service = btn.getAttribute('data-service');
+                    document.getElementById('service').value = service;
+                    document.querySelector('[data-target="request-quote"]').click();
+                });
+            });
+
+            // Lazy loading for images
+            const lazyImages = document.querySelectorAll('img.lazy');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
+            } else {
+                // Fallback for browsers without IntersectionObserver
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
